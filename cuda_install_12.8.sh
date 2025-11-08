@@ -53,6 +53,7 @@ export NVCC=${CUDA_PATH}/bin/nvcc
 export CFLAGS="-I${CUDA_PATH}/include ${CFLAGS}"
 
 # PyTorch RTX 5090最適化設定
+export NVIDIA_TF32_OVERRIDE=1
 export TORCH_ALLOW_TF32_CUBLAS_OVERRIDE=1
 # ===== CUDA 12.8 Configuration END =====
 EOF

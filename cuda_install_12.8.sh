@@ -58,4 +58,6 @@ export TORCH_ALLOW_TF32_CUBLAS_OVERRIDE=1
 # ===== CUDA 12.8 Configuration END =====
 EOF
 
+source ~/.bashrc
+
 # 上手く行かない場合はREADME.mdのトラブルシューティングを参照

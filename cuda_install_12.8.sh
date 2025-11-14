@@ -39,7 +39,6 @@ sudo ln -sf /usr/local/cuda-12.8 /usr/local/cuda
 
 # 環境変数の設定
 cat >> ~/.bashrc << 'EOF'
-
 # ===== CUDA 12.8 Configuration START =====
 # CUDA 12.8 環境変数
 export CUDA_VERSION=12.8
@@ -58,7 +57,6 @@ EOF
 if [[ "$(nvidia-smi --query-gpu=name --format=csv,noheader)" == *"RTX 5090"* ]]; then
     echo "Configuring environment for RTX 5090"
     cat >> ~/.bashrc << 'EOF'
-
 # PyTorch RTX 5090最適化設定
 export NVIDIA_TF32_OVERRIDE=1
 export TORCH_ALLOW_TF32_CUBLAS_OVERRIDE=1

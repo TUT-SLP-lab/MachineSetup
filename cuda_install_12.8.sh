@@ -47,14 +47,26 @@ export CUDA_HOME=/usr/local/cuda-${CUDA_VERSION}
 export CUDA_PATH=${CUDA_HOME}
 export PATH=${CUDA_PATH}/bin:${PATH}
 export LD_LIBRARY_PATH=${CUDA_PATH}/lib64:${LD_LIBRARY_PATH}
-export LD_LIBRARY_PATH=${CUDA_PATH}/extras/CUPTI/lib64:${LD_LIBRARY_PATH}
 export LIBRARY_PATH=${CUDA_PATH}/lib64:${LIBRARY_PATH}
+export CUDNN_INCLUDE_DIR=${CUDA_PATH}/include
+export CUDNN_LIB_DIR=${CUDA_PATH}/lib64
 export NVCC=${CUDA_PATH}/bin/nvcc
 export CFLAGS="-I${CUDA_PATH}/include ${CFLAGS}"
+EOF
+
+# 使用する GPU に応じて最適化設定を行う
+if [[ "$(nvidia-smi --query-gpu=name --format=csv,noheader)" == *"RTX 5090"* ]]; then
+    echo "Configuring environment for RTX 5090"
+    cat >> ~/.bashrc << 'EOF'
 
 # PyTorch RTX 5090最適化設定
 export NVIDIA_TF32_OVERRIDE=1
 export TORCH_ALLOW_TF32_CUBLAS_OVERRIDE=1
+EOF
+
+fi
+
+cat >> ~/.bashrc << 'EOF'
 # ===== CUDA 12.8 Configuration END =====
 EOF
 

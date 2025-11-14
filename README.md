@@ -26,7 +26,7 @@ apt search cuda-toolkit-12-8
 # 6. CUDA Toolkit をインストール
 sudo apt install -y cuda-toolkit-12-8
 
-# 7. cudatoolkit の key id を確認し最後の8ケタをスペースなしで控える (例：EB69 3B3B)
+# 7. cudatools の key id を確認し最後の8ケタをスペースなしで控える (例：EB69 3B3B)
 sudo apt-key list
 
 # 8. keyrings ディレクトリを作成

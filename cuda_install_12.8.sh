@@ -26,7 +26,7 @@ else
 fi
 
 
-
+# TODO: なぜか環境変数の設定までたどり着かない原因の調査
 sudo apt install -y nvidia-driver-580-open
 
 # CUDA 12.8のインストール

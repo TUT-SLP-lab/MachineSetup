@@ -37,12 +37,11 @@ sudo apt install -y cuda-toolkit-12-8 cuda-drivers-580
 sudo apt install -y libcudnn9-cuda-12 libcudnn9-dev-cuda-12
 sudo ln -sf /usr/local/cuda-12.8 /usr/local/cuda
 
-# 環境変数の設定
-cat >> ~/.bashrc << 'EOF'
+# システム全体の環境変数設定 (全ユーザー用)
+sudo tee /etc/profile.d/cuda.sh > /dev/null << 'EOF'
 # ===== CUDA 12.8 Configuration START =====
-# CUDA 12.8 環境変数
 export CUDA_VERSION=12.8
-export CUDA_HOME=/usr/local/cuda-${CUDA_VERSION}
+export CUDA_HOME=/usr/local/cuda-12.8
 export CUDA_PATH=${CUDA_HOME}
 export PATH=${CUDA_PATH}/bin:${PATH}
 export LD_LIBRARY_PATH=${CUDA_PATH}/lib64:${LD_LIBRARY_PATH}
@@ -51,9 +50,18 @@ export CUDNN_INCLUDE_DIR=${CUDA_PATH}/include
 export CUDNN_LIB_DIR=${CUDA_PATH}/lib64
 export NVCC=${CUDA_PATH}/bin/nvcc
 export CFLAGS="-I${CUDA_PATH}/include ${CFLAGS}"
+# ===== CUDA 12.8 Configuration END =====
 EOF
 
-# 使用する GPU に応じて最適化設定を行う
+sudo chmod +x /etc/profile.d/cuda.sh
+
+# ライブラリパスの設定
+sudo tee /etc/ld.so.conf.d/cuda.conf > /dev/null << 'EOF'
+/usr/local/cuda-12.8/lib64
+EOF
+sudo ldconfig
+
+# 使用する GPU に応じて最適化設定を行う（現在のユーザのみ）
 if [[ "$(nvidia-smi --query-gpu=name --format=csv,noheader)" == *"RTX 5090"* ]]; then
     echo "Configuring environment for RTX 5090"
     cat >> ~/.bashrc << 'EOF'
